@@ -25,20 +25,20 @@ and start session holding their uID
             $object = new stdClass();
             $object->status = 1; // 1 indicates success
             $object->p_username = $p_username;
-            echo("
+           /* echo("
                 <h3><a href='./parent-dashboard.php'>Click here to go to your parent dashboard</a></h3>
-                <h5><a href='./logout.php'>Logout</a></h5>"); // DELETE ME
+                <h5><a href='./logout.php'>Logout</a></h5>"); // DELETE ME*/
         } else {
             $object = new stdClass();
             $object->status = 0; // 0 indicates failure: password does not match email
             $object->p_email = $p_email;
-            echo("            <h3><a href='../Phase2.html'>Back to main page</a></h3>"); // DELETE ME
+           // echo("            <h3><a href='../Phase2.html'>Back to main page</a></h3>"); // DELETE ME
         }
     } else {
         $object = new stdClass();
         $object->status = -1; // 0 indicates failure: bad email
         $object->p_email = $p_email;
-        echo("            <h3><a href='../Phase2.html'>Back to main page</a></h3>"); // DELETE ME
+       // echo("            <h3><a href='../Phase2.html'>Back to main page</a></h3>"); // DELETE ME
     }
     $the_json = json_encode($object);
     echo($the_json);
