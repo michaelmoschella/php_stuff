@@ -11,7 +11,8 @@ for parent user.
     or die ('Could not connect: ' . mysqli_error());
     $mydb = mysqli_select_db ($myconnection, 'DB2') or die ('Could not select database');
 
-    $active_id = $_SESSION['active_ID'];
+    $active_id = $_POST['active_ID'];
+ //   $active_id = $_POST['active_id'];
 
     /*get info of logged in parent*/
     $get_info_query = "SELECT name, role FROM User WHERE {$active_id} = uID;";
@@ -24,7 +25,8 @@ for parent user.
     $object->role=$row[1];
     $object->children=array(); 
 
-    echo("<h1><a href='change-p-profile.php'>Change Your Profile</a></h1>"); // DELETE ME
+   // echo("<h1><a href='parent-view-sections.php?parent_role=".$p_role."'>View Sections</a></h1>");
+   // echo("<h1><a href='change-p-profile.php'>Change Your Profile</a></h1>"); // DELETE ME
     
     /* Get children of logged in parent */
     $get_children_query = "SELECT name, role, uid FROM User, Family WHERE Family.pID = {$active_id} AND Family.sID = User.uID;";
@@ -36,11 +38,11 @@ for parent user.
         $child_object->uid=$row[2];
         array_push($object->children, $child_object);
         
-        echo("<h1><a href='change-c-profile.php?cID=".$row[2]."'>Change Your Child's Profile</a></h1>"); // DELETE ME
+        /*echo("<h1><a href='change-c-profile.php?cID=".$row[2]."'>Change Your Child's Profile</a></h1>"); // DELETE ME*/
     }
     $the_json = json_encode($object);
     echo($the_json);
-    echo('<h3><a href="logout.php">Logout</a></h3>'); // DELETE ME
+    //echo('<h3><a href="logout.php">Logout</a></h3>'); // DELETE ME
 
     mysqli_close($myconnection);
     exit;
