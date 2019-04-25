@@ -11,7 +11,7 @@ for parent user.
     or die ('Could not connect: ' . mysqli_error());
     $mydb = mysqli_select_db ($myconnection, 'DB2') or die ('Could not select database');
 
-    $active_id = $_POST['active_ID'];
+    $active_id = $_POST['active_id'];
  //   $active_id = $_POST['active_id'];
 
     /*get info of logged in parent*/
