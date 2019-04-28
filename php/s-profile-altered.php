@@ -8,13 +8,13 @@ tables if necessary.
 ***********************************************/
     session_start();
 
-    $s_email = $_POST['s_Email']; 
-    $s_pass = $_POST['Student_Pass'];
-    $s_pass_confirm = $_POST['Student_Confirm_Pass'];
-    $s_role = $_POST['s_role'];
-    $s_name = $_POST['Student_Name'];
-    $s_phone = $_POST['Student_Phone_Number'];
-    $s_username = $_POST['s_username'];
+    $s_email = $_POST['Email']; 
+    $s_pass = $_POST['Password'];
+    $s_pass_confirm = $_POST['Confirm_Password'];
+    $s_role = $_POST['Role'];
+    $s_name = $_POST['Name'];
+    $s_phone = $_POST['Phone'];
+    $s_username = $_POST['Username'];
     
     $myconnection = mysqli_connect('localhost', 'root', '') 
     or die ('Could not connect: ' . mysqli_error());
@@ -24,20 +24,20 @@ tables if necessary.
         $s_role = 'Student';
     }
     if ($s_role == 'Mentor' || $s_role == 'Both'  ){
-        $check_mentor_query = "SELECT count(*) FROM Mentor WHERE orID={$_SESSION['active_ID']};";
+        $check_mentor_query = "SELECT count(*) FROM Mentor WHERE orID={$_POST['active_ID']};";
         $result1 = mysqli_query($myconnection, $check_mentor_query) or die ('Query failed: ' . mysqli_error($myconnection));
         $row = mysqli_fetch_row($result1);
         if (!$row[0]) {
-            $insert_mentor_query = "INSERT INTO Mentor VALUES({$_SESSION['active_ID']});";
+            $insert_mentor_query = "INSERT INTO Mentor VALUES({$_POST['active_ID']});";
             $result1 = mysqli_query($myconnection, $insert_mentor_query) or die ('Query failed: ' . mysqli_error($myconnection));
         }
     }
     if ($s_role == 'Mentee' || $s_role == 'Both'  ){
-        $check_mentee_query = "SELECT count(*) FROM Mentee WHERE eeID={$_SESSION['active_ID']};";
+        $check_mentee_query = "SELECT count(*) FROM Mentee WHERE eeID={$_POST['active_ID']};";
         $result1 = mysqli_query($myconnection, $check_mentee_query) or die ('Query failed: ' . mysqli_error($myconnection));
         $row = mysqli_fetch_row($result1);
         if (!$row[0]) {
-            $insert_mentee_query = "INSERT INTO Mentee VALUES({$_SESSION['active_ID']});";
+            $insert_mentee_query = "INSERT INTO Mentee VALUES({$_POST['active_ID']});";
             $result1 = mysqli_query($myconnection, $insert_mentee_query) or die ('Query failed: ' . mysqli_error($myconnection));
         }
     }
@@ -63,18 +63,18 @@ tables if necessary.
         $update_query .= " role = '${s_role}',"; 
     }
     $update_query = substr($update_query, 0, -1); #trim off extra ,
-    $update_query .= " WHERE uID = {$_SESSION['active_ID']};";
+    $update_query .= " WHERE uID = {$_POST['active_ID']};";
     $result1 = mysqli_query($myconnection, $update_query) or die ('Query failed: ' . mysqli_error($myconnection));
 
     $object = new stdClass();
-    $object->status=1; // success
+    $object->status = 1; // success
 
     $the_json = json_encode($object);
     echo($the_json);
-    echo("
+    /*echo("
         <h3><a href='student-dashboard.php'>Back to dashboard</a></h3>
         <h3><a href='logout.php'>Logout</a>"
-    ); // DELETE ME
+    );*/ // DELETE ME
 
     mysqli_close($myconnection);
     exit;

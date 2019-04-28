@@ -25,6 +25,7 @@ and start session holding their uID
             $object = new stdClass();
             $object->status = 1; // 1 indicates success
             $object->s_username = $s_username;
+            $object->uid = $row[2];
             /*echo("
                 <h3><a href='./student-dashboard.php'>Click here to go to your student dashboard</a></h3>
                 <h5><a href='./logout.php'>Logout</a></h5>"); // DELETE ME*/

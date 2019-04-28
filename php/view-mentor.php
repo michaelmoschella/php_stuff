@@ -57,8 +57,8 @@ in sections that the logged in student is mentoring
                 </tr>";*/
 
         $section_obj = new stdClass();
-        $section_obj->title = $row[1];
-        $section_obj->name = $row[0];
+        $section_obj->Course_Title = $row[1];
+        $section_obj->Section_Name = $row[0];
         //$section_obj->description = $row[14];
         $section_obj->mentors = array();
         $section_obj->mentees = array();
@@ -74,10 +74,10 @@ in sections that the logged in student is mentoring
         $result3 = mysqli_query($myconnection, $get_mentees_query) or die ('Query failed: ' . mysqli_error($myconnection));
         while($a_row = mysqli_fetch_row($result3)){
             $ee_obj = new stdClass();
-            $ee_obj->username = $a_row[0];
-            $ee_obj->grade = $a_row[1];
-            $ee_obj->email = $a_row[2];
-            array_push($section_obj->mentors, $ee_obj);    
+            $ee_obj->Username = $a_row[0];
+            $ee_obj->Grade = $a_row[1];
+            $ee_obj->Email = $a_row[2];
+            array_push($section_obj->mentees, $ee_obj);    
             /*$html_string .="
                 <tr>
                     <td>{$a_row[0]}</td>
@@ -92,9 +92,9 @@ in sections that the logged in student is mentoring
                 </tr>";*/
         while($a_row = mysqli_fetch_row($result2)){
             $or_obj = new stdClass();
-            $or_obj->username = $a_row[0];
-            $or_obj->grade = $a_row[1];
-            $or_obj->email = $a_row[2];  
+            $or_obj->Username = $a_row[0];
+            $or_obj->Grade = $a_row[1];
+            $or_obj->Email = $a_row[2];  
             array_push($section_obj->mentors, $or_obj);      
              /*$html_string .= "   
                 <tr>

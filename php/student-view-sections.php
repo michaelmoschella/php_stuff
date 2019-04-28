@@ -179,20 +179,19 @@ student is eligible to enroll or not.
                     <td>$row1[0]/$row[12]</td>
                     <td>$row2[0]/$row[13]</td>";*/
                     $section_obj = new stdClass();
-                    $section_obj->title = $row[0];
-                    $section_obj->name = $row[3];
-                    $section_obj->description = $row[14];
-                    $section_obj->start_date = $row[5];
-                    $section_obj->end_date = $row[6];
-                    $section_obj->start_time = $row[7];
-                    $section_obj->end_time = $row[8];
-                    $section_obj->end_time = $row[8];
-                    $section_obj->or_req = $row[1];
-                    $section_obj->ee_req = $row[2];
-                    $section_obj->or_enrolled = $row1[0];
-                    $section_obj->or_cap = $row[12];
-                    $section_obj->ee_enrolled = $row2[0];
-                    $section_obj->ee_cap = $row[13];
+                    $section_obj->Course_Title = $row[0];
+                    $section_obj->Section_Name = $row[3];
+                    $section_obj->Description = $row[14];
+                    $section_obj->Start_Date = $row[5];
+                    $section_obj->End_Date = $row[6];
+                    $section_obj->Start_Time = $row[7];
+                    $section_obj->End_Time = $row[8];
+                    $section_obj->Mentor_Requirement = $row[1];
+                    $section_obj->Mentee_Requirement = $row[2];
+                    $section_obj->Mentors_Enrolled = $row1[0];
+                    $section_obj->Mentor_Capacity = $row[12];
+                    $section_obj->Mentees_Enrolled = $row2[0];
+                    $section_obj->Mentee_Capacity = $row[13];
                     
                 if ($s_grade >= $row[1] && $mentor && $todays_date < $end_date && !$learning[0]){
                     if (!$teaching[0]) {
@@ -271,6 +270,9 @@ student is eligible to enroll or not.
                     $section_obj->ee_status = -4; // n/a
                     //$html_string .= "<td>N/A</td>";
                 }
+                $section_obj->cID = $row[10];
+                $section_obj->secID = $row[11];
+
                 //$html_string .= "</tr>";
                 array_push($object->sections, $section_obj);
             }
