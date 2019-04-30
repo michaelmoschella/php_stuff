@@ -1,5 +1,5 @@
 <?php
-/********************************************** 
+/**********************************************
 parent-view-sections.php
 
 Displays a list of all the sections displaying
@@ -8,8 +8,8 @@ to moderate.
 ***********************************************/
     session_start();
 
-    
-    $parent_role = $_POST['parent_role']; # get parameter from link
+
+    //$parent_role = $_POST['parent_role']; # get parameter from link
     $active_id = $_POST['active_ID'];
 
     $myconnection = mysqli_connect('localhost', 'root', '')
@@ -18,12 +18,18 @@ to moderate.
 
     $todays_date = new DateTime(date("Y-m-d"));
 
+    $get_role_query = "SELECT uID
+        FROM  User
+        WHERE uID = $active_id ;";
+
+    $result1 = mysqli_query($myconnection, $get_role_query) or die ('Query failed: ' . mysqli_error($myconnection));
+    $parent_role = mysqli_fetch_row($result1)[0];
     /* get section info */
     $get_section_info_query = "SELECT Course.title, Course.orReq, Course.eeReq,
         Section.name, Section.tuition, Section.startDate, Section.endDate,
         Schedule.startTime, Schedule.endTime, Schedule.days,
         Course.cID, Section.SecID,
-        Section.mentorCap, Section.menteeCap
+        Section.mentorCap, Section.menteeCap, Course.description
         FROM Course, Section, Schedule
         WHERE Course.cID = Section.cID AND
         Section.schedID = Schedule.schedID;";
@@ -64,7 +70,7 @@ to moderate.
 
     if($parent_role=='Moderator'){
         $html_string .= "
-        <th>Moderate as Moderator</th>"; 
+        <th>Moderate as Moderator</th>";
     }
 
     $html_string .= "</tr>";
@@ -74,14 +80,14 @@ to moderate.
 
     while ($row = mysqli_fetch_row($result1)){
       /* Get number of mentors enrolled in section */
-        $get_mentor_count_query = "SELECT count(*) FROM Teaches 
+        $get_mentor_count_query = "SELECT count(*) FROM Teaches
         WHERE Teaches.secID = {$row[11]} AND Teaches.cID = {$row[10]};";
         $result3 = mysqli_query($myconnection, $get_mentor_count_query) or die ('Query failed: ' . mysqli_error($myconnection));
         $row1 = mysqli_fetch_row($result3);
         mysqli_free_result($result3);
 
         /* Get number of mentees enrolled in section */
-        $get_mentee_count_query = "SELECT COUNT(*) FROM Learns 
+        $get_mentee_count_query = "SELECT COUNT(*) FROM Learns
         WHERE Learns.secID = {$row[11]} AND Learns.cID = {$row[10]};";
         $result4 = mysqli_query($myconnection, $get_mentee_count_query) or die ('Query failed: ' . mysqli_error($myconnection));
         $row2 = mysqli_fetch_row($result4);
@@ -100,6 +106,7 @@ to moderate.
         <td>$row1[0]/$row[12]</td>
         <td>$row2[0]/$row[13]</td>";*/
         $section_obj = new stdClass();
+<<<<<<< HEAD
         $section_obj->title = $row[0];
         $section_obj->name = $row[3];
         $section_obj->Description = $row[14];
@@ -114,6 +121,21 @@ to moderate.
         $section_obj->or_cap = $row[12];
         $section_obj->ee_enrolled = $row2[0];
         $section_obj->ee_cap = $row[13];
+=======
+        $section_obj->Course_Title = $row[0];
+        $section_obj->Section_Name = $row[3];
+        $section_obj->Description = $row[14];
+        $section_obj->Start_Date = $row[5];
+        $section_obj->End_Date = $row[6];
+        $section_obj->Start_Time = $row[7];
+        $section_obj->End_Time = $row[8];
+        $section_obj->Mentor_Requirement = $row[1];
+        $section_obj->Mentee_Requirement = $row[2];
+        $section_obj->Mentors_Enrolled = $row1[0];
+        $section_obj->Mentor_Capacity = $row[12];
+        $section_obj->Mentees_Enrolled = $row2[0];
+        $section_obj->Mentee_Capacity = $row[13];
+>>>>>>> 48f1da1c2e04148e62dd095b56ea5c2fed8a2881
         if($parent_role=='Moderator'){
           /* Get info for which parent is moderating which course */
             $get_info_query = "SELECT Moderates.secID, Moderates.cID, Moderates.modID, User.name FROM Moderates, User WHERE Moderates.modID = User.uID;";
@@ -170,4 +192,3 @@ to moderate.
     mysqli_close($myconnection);
     exit;
 ?>
-
