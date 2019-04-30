@@ -18,7 +18,7 @@ to moderate.
 
     $todays_date = new DateTime(date("Y-m-d"));
 
-    $get_role_query = "SELECT uID
+    $get_role_query = "SELECT role
         FROM  User
         WHERE uID = $active_id ;";
 
@@ -119,6 +119,11 @@ to moderate.
         $section_obj->Mentor_Capacity = $row[12];
         $section_obj->Mentees_Enrolled = $row2[0];
         $section_obj->Mentee_Capacity = $row[13];
+        $section_obj->cID = $row[10];
+        $section_obj->secID = $row[11];
+
+        $section_obj->moderator_status = -8; // not a moderator
+      /*  echo($parent_role); */
         if($parent_role=='Moderator'){
           /* Get info for which parent is moderating which course */
             $get_info_query = "SELECT Moderates.secID, Moderates.cID, Moderates.modID, User.name FROM Moderates, User WHERE Moderates.modID = User.uID;";
@@ -138,7 +143,7 @@ to moderate.
             }
             /* Determine if section already ended */
             if ($todays_date > $end_date) {
-               // $section_obj->moderator_status = -1; // section ended
+                $section_obj->moderator_status = -1; // section ended
                // $html_string .= "<td>Section has ended</td>";
             } else {
                 if($test==0){
