@@ -20,12 +20,13 @@ profile information
     mysqli_free_result($result1);
 
     $object = new stdClass();
-    $object->name=$row[0];
-    $object->username=$row[1];
-    $object->password=$row[2];
-    $object->email=$row[3];
-    $object->phone=$row[4];
-    $object->role=$row[5];
+    $object->Name=$row[0];
+    $object->Username=$row[1];
+    $object->Password=$row[2];
+    $object->Confirm_Password=$row[2];
+    $object->Email=$row[3];
+    $object->Phone=$row[4];
+    $object->Role=$row[5];
 
     $the_json = json_encode($object);
     echo($the_json);
