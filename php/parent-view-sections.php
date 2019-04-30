@@ -119,11 +119,14 @@ to moderate.
         $section_obj->Mentor_Capacity = $row[12];
         $section_obj->Mentees_Enrolled = $row2[0];
         $section_obj->Mentee_Capacity = $row[13];
+<<<<<<< HEAD
         $section_obj->cID = $row[10];
         $section_obj->secID = $row[11];
 
         $section_obj->moderator_status = -8; // not a moderator
       /*  echo($parent_role); */
+=======
+>>>>>>> 190c4cc19e11d43ec5ec369dfcbf2a8d39cd2db6
         if($parent_role=='Moderator'){
           /* Get info for which parent is moderating which course */
             $get_info_query = "SELECT Moderates.secID, Moderates.cID, Moderates.modID, User.name FROM Moderates, User WHERE Moderates.modID = User.uID;";
