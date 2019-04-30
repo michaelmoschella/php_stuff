@@ -102,7 +102,7 @@ to moderate.
         $section_obj = new stdClass();
         $section_obj->title = $row[0];
         $section_obj->name = $row[3];
-        //$section_obj->description = $row[14];
+        $section_obj->Description = $row[14];
         $section_obj->start_date = $row[5];
         $section_obj->end_date = $row[6];
         $section_obj->start_time = $row[7];
