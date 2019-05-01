@@ -67,6 +67,7 @@ for each session.
 
     $object = new stdClass();
     $object->mentor_sections=array();
+    $object->mentee_sections=array();
 
 
     /* Get list of sections student is mentoring */
@@ -105,7 +106,7 @@ for each session.
                 And Session.secID = {$row[2]} AND Session.cID = {$row[3]}
                 AND Section.schedID = Schedule.schedID;";
         $result2 = mysqli_query($myconnection, $get_sessions_query) or die ('Query failed: ' . mysqli_error($myconnection));
-        $session_obj = new stdClass();
+
         
         if (mysqli_num_rows($result2)) {
             while($a_row = mysqli_fetch_row($result2)){
@@ -130,7 +131,7 @@ for each session.
                 $row3 = mysqli_fetch_row($result5);
 
                 mysqli_free_result($result4);
-
+                $session_obj = new stdClass();
                 $session_obj->Session_Name = $a_row[0];
                 $session_obj->Announcement = $a_row[7];
                 $session_obj->Date = $a_row[1];
@@ -138,6 +139,9 @@ for each session.
                 $session_obj->End_Time = $a_row[3];
                 $session_obj->Mentor_Count = $row1[0];
                 $session_obj->Mentee_Count = $row2[0];
+                $session_obj->cID = $a_row[6];
+                $session_obj->secID = $a_row[5];
+                $session_obj->sesID = $a_row[4];
 
 
                /* $html_string .="
@@ -165,7 +169,7 @@ for each session.
                             }
                         }
                     //$html_string .= "</tr>";
-                array_push($section_obj->sessions, $session_obj);
+                array_push($section_obj->Sessions, $session_obj);
             }
         }
         array_push($object->mentor_sections, $section_obj);
@@ -176,7 +180,7 @@ for each session.
     }
     mysqli_free_result($result1);
 
-    $html_string .= "<h1>Participate in sessions as a mentee</h1>"; 
+   // $html_string .= "<h1>Participate in sessions as a mentee</h1>"; 
     $object->mentee_sections=array();
 
     /* Get List of sections student is a mentee in */
@@ -211,7 +215,7 @@ for each session.
 
         /* Get Sessions of those sections */
         $get_sessions_query ="SELECT Session.name, Session.theDate, Schedule.startTime, Schedule.endTime,
-                Session.sesID, Session.secID, Session.cID
+                Session.sesID, Session.secID, Session.cID, Session.announcement
             FROM Session, Section, Schedule
             WHERE 
             Session.secID = Section.secID AND Session.cID = Section.cID
@@ -242,7 +246,7 @@ for each session.
                 $result5 = mysqli_query($myconnection, $is_menteeing_query) or die ('Query failed: ' . mysqli_error($myconnection));
                 $row3 = mysqli_fetch_row($result5);
                 mysqli_free_result($result5);
-
+                $session_obj = new stdClass();
                 $session_obj->Session_Name = $a_row[0];
                 $session_obj->Announcement = $a_row[7];
                 $session_obj->Date = $a_row[1];
@@ -250,6 +254,9 @@ for each session.
                 $session_obj->End_Time = $a_row[3];
                 $session_obj->Mentor_Count = $row1[0];
                 $session_obj->Mentee_Count = $row2[0];
+                $session_obj->cID = $a_row[6];
+                $session_obj->secID = $a_row[5];
+                $session_obj->sesID = $a_row[4];
 
                 /*$html_string .="
                     <tr>
@@ -263,28 +270,28 @@ for each session.
 */
                         $sess_date = new DateTime($a_row[1]);
                         if ($sess_date < $todays_date) {
-                            $session_obj->status = -2
+                            $session_obj->status = -2;
                            // $html_string .= "<td>Session ended</td>";
                         } else {
                             if (!$row3[0]) {
                                 /*mentees can not enroll after Thursday for sessions in the upcoming week*/
                                 if (date_diff($sess_date, $fri_date)->format("%d") < 9){ # assuming weeks start on mon end on Sun
-                                    $session_obj->status = -3
+                                    $session_obj->status = -3;
                                     //$html_string .= "<td>Missed Thursday Deadline</td>";
                                 } else {
-                                    $session_obj->status = 1
+                                    $session_obj->status = 1;
                                     //$html_string .= "<td><a href='enroll-mentee-session.php?cID=".$a_row[6]."&&secID=".$a_row[5]."&&sesID=".$a_row[4]."'>Participate</td>";
                                 }
                             } else {
-                            $session_obj->status = -1
+                            $session_obj->status = -1;
                                 //$html_string .= "<td>Currently Participating</td>";
                             }
                         }
-                    $html_string .= "</tr>";
+                   // $html_string .= "</tr>";
+                array_push($section_obj->Sessions, $session_obj);
             } 
-            array_push($section_obj->sessions, $session_obj);
         }
-        array_push($object->mentor_sections, $section_obj);
+        array_push($object->mentee_sections, $section_obj);
         mysqli_free_result($result2);
     /*    $html_string .= "
             </table>
