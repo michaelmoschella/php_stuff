@@ -1,19 +1,28 @@
 <?php
-/********************************************** 
+/**********************************************
 c-profile-altered.php
 
-makes changes to childs info in User table 
+makes changes to childs info in User table
 and adds to Mentee and Mentor tables if necessary.
 ***********************************************/
 
-    $c_ID = $_POST['c_ID'];
+    /*$c_ID = $_POST['c_ID'];
     $c_email = $_POST['c_Email'];
     $c_pass = $_POST['Parents_Children_Pass'];
     $c_pass_confirm = $_POST['Parents_Children_Confirm_Pass'];
     $c_role = $_POST['c_role'];
     $c_name = $_POST['Parents_Children_Name'];
     $c_phone = $_POST['Parent_Children_Phone_Number'];
-    $c_username = $_POST['c_username'];
+    $c_username = $_POST['c_username'];*/
+
+    $c_ID = $_POST['c_ID'];
+    $c_email = $_POST['Email'];
+    $c_pass = $_POST['Password'];
+    $c_pass_confirm = $_POST['Confirm_Password'];
+    $c_role = $_POST['Role'];
+    $c_name = $_POST['Name'];
+    $c_phone = $_POST['Phone'];
+    $c_username = $_POST['Username'];
 
     $myconnection = mysqli_connect('localhost', 'root', '')
     or die ('Could not connect: ' . mysqli_error());
@@ -64,18 +73,18 @@ and adds to Mentee and Mentor tables if necessary.
     $update_query = substr($update_query, 0, -1); #trim off extra comma
     $update_query .= " WHERE uID = {$c_ID};";
     $result1 = mysqli_query($myconnection, $update_query) or die ('Query failed: ' . mysqli_error($myconnection));
-    
+
     $object = new stdClass();
     $object->status=1; // success
 
     $the_json = json_encode($object);
     echo($the_json);
-    
+
     echo("
         <h3><a href='parent-dashboard.php'>Back to dashboard</a></h3>
         <h3><a href='logout.php'>Logout</a>"
     ); // DELETE ME
-    
+
 
     mysqli_close($myconnection);
     exit;
