@@ -52,6 +52,10 @@ You can log in as bart the student:
 email = bart@bart.com
 password = password
 
+Another good student to look at is Brett:
+email = brett@brett.com
+password = password
+
 
 
 
