@@ -1,8 +1,8 @@
 Mike Moschella
 Ross Hall
 DB 2
-Phase 2
-3/27/19
+Phase 3
+5/1/19
 
 To Install Software:
 
@@ -10,7 +10,7 @@ To Install Software:
     and that you have started apache and mysql
     using the control panel.
 
-- Store project in htdocs folder
+- Move the folder named "phase3" into your htdocs folder
 
 - Make sure you can access mysql using the command 
     line and use the following commands to set up
@@ -20,55 +20,38 @@ To Install Software:
     - GRANT ALL PRIVILEGES ON *.* TO root@Localhost
     - CREATE DATABASE DB2;
     - USE DB2;
-    - source C:\xampp\htdocs\DB2\sql\create_tables.sql
+    - source C:\xampp\htdocs\phase3\php_stuff\sql\create_tables.sql
 
-- In web browser navigate to http://localhost/db2-practice/Phase2.html
+- Make sure the file structure for the php files is C:\xampp\htdocs\phase3\php_stuff\php
+
+- Import the directory DB2phase3 into Android Studio
+
+- Compile and run the Android Studio project
 
 *************************************************************************
 Notes: 
 
-- All 8 of the tasks in the assignment description have been 
-implemented, however often several different queries are used
-in completing a given task. 
+- We have implemented all of the tasks in the assignment description.  
+In addition to what is listed in the project desription, mentors can view 
+the list of sessions that they can mentor, and moderators can view the list
+of sessions from sections that they are moderating.  This was not listed anywhere
+in the assignment description or mentioned to the whole class as a requirement but 
+we decided to implement it to go above and beyond.
 
 - We implemented the project in a style similar to the TA, We used
-lots of different php files for various tasks and most of the html 
-is embedded in those php files.
-
-- Notifications for students and parents are displayed on their
-dashboard and not listed in separate files. When a user logs
-into their dashboard a check is made to see if they have any 
-notifications that need to be displayed. We were told that this
-was acceptable by both the TA and Professor Chen. 
+ different php files for various tasks.
 
 - If a query was made but there is no information (ex. A student is
-not enrolled in any sections) sometimes this is indicated in the GUI,
-however sometimes a blank table is displayed.
+not enrolled in any sections) no information will show up on the GUI.
 
-- Some extra features we implemented are the ability for students to 
-view a list of moderators and their contact information. The ability 
-for Moderators to view a list of all students and their parents as well
-as their contact information. A review system where mentees can write
-reviews for mentors that they recently studied with. These reviews must
-be verified by the moderator of the section that the mentee and mentor were
-enrolled in. When a review needs to be verified it is displayed in the
-notification system on the moderators dashboard. Once verified all students
-can see the reviews for all mentors. 
-
-I believe the tables are set up to have some notifications displaying
-for most of April.
-
-You can log in as becky the moderator to see notifications for assigning mentors:
+You can log in as becky the moderator:
 email = becky@becky.com
 password = password
 
-You can log in as bart the student to se notifications for canceled sessions:
+You can log in as bart the student:
 email = bart@bart.com
 password = password
 
-You can log in as brock to write lots of reviews that becky can verify:
-email = brock@brock.com
-password = password
 
 
 
