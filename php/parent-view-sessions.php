@@ -175,8 +175,8 @@ different sessions
             </tr>";
 */          array_push($section_obj->Sessions, $session_obj);
         }   
+        array_push($object->sections, $section_obj);
     }
-    array_push($object->sections, $section_obj);
     mysqli_free_result($result1);
 
     $the_json = json_encode($object);
